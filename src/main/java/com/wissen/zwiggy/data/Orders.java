@@ -19,6 +19,18 @@ public class Orders {
 	
 	@Column(name="total")
 	int total;
+	
+	Orders(){
+		
+	};
+
+	public Orders(int id, int customer_id, int total) {
+		super();
+		this.id = id;
+		this.customer_id = customer_id;
+		this.total = total;
+	}
+
 
 	public int getId() {
 		return id;

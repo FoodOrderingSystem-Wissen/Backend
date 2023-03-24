@@ -20,7 +20,18 @@ public class Bill {
 	
 	@Column(name="amount")
 	int amount;
-
+	
+	Bill(){
+	};
+	
+	public Bill(int id, int order_id, int transcation_no, int amount) {
+		super();
+		this.id = id;
+		this.order_id = order_id;
+		this.transcation_no = transcation_no;
+		this.amount = amount;
+	}
+	
 	public int getId() {
 		return id;
 	}

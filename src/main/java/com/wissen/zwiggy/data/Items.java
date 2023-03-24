@@ -23,6 +23,17 @@ public class Items {
 	// Stores what item belongs to which restaurant
 	@Column(name="restaurant_id")
 	int restaurant_id;
+	
+	Items(){};
+
+	public Items(int id, String name, int price, String category, int restaurant_id) {
+		super();
+		this.id = id;
+		this.name= name;
+		this.price= price;
+		this.category= category;
+		this.restaurant_id= restaurant_id;
+	}
 
 	public int getId() {
 		return id;

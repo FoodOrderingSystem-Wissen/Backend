@@ -20,6 +20,16 @@ public class OrderItems {
 	
 	@Column(name="quantity")
 	int quantity;
+	
+	OrderItems(){};
+	
+	public OrderItems(int id, int item_id, int order_id,int quantity) {
+		super();
+		this.id = id;
+		this.item_id= item_id;
+		this.order_id= order_id;
+		this.quantity= quantity;
+	}
 
 	public int getId() {
 		return id;

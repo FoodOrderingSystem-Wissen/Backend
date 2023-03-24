@@ -19,6 +19,17 @@ public class Analytics {
 	
 	@Column(name="total_sales")
 	int total_sales;
+	
+	Analytics(){
+	};
+
+	public Analytics(int id, int restaurant_id, int total_orders, int total_sales) {
+		super();
+		this.id = id;
+		this.restaurant_id = restaurant_id;
+		this.total_orders = total_orders;
+		this.total_sales = total_sales;
+	}
 
 	public int getId() {
 		return id;

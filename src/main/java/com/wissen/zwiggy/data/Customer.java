@@ -2,6 +2,7 @@ package com.wissen.zwiggy.data;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
 
@@ -24,9 +25,19 @@ public class Customer {
 	String address;
 	
 	@Column(name="contact")
-	int contact_no;
+	long contact_no;
 	
 	Customer(){
+	};
+
+	public Customer(int customer_id, String name, String email, String password, String address, long contact_no) {
+		super();
+		this.customer_id = customer_id;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.address = address;
+		this.contact_no = contact_no;
 	}
 
 	public int getCustomer_id() {
@@ -69,11 +80,11 @@ public class Customer {
 		this.address = address;
 	}
 
-	public int getContact_no() {
+	public long getContact_no() {
 		return contact_no;
 	}
 
-	public void setContact_no(int contact_no) {
+	public void setContact_no(long contact_no) {
 		this.contact_no = contact_no;
 	}
 
