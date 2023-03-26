@@ -2,6 +2,8 @@ package com.wissen.zwiggy.data;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
 
@@ -11,14 +13,15 @@ public class Orders {
 	
 //	Unique order id for each order
 	@Id
-	int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	
 //	what order belongs to which customer
 	@Column(name="customer_id")
-	int customer_id;
+	private int customer_id;
 	
 	@Column(name="total")
-	int total;
+	private int total;
 	
 	Orders(){
 		

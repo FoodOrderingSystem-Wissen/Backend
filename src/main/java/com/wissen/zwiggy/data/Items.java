@@ -2,6 +2,8 @@ package com.wissen.zwiggy.data;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
 
@@ -9,20 +11,21 @@ import jakarta.persistence.Id;
 @Table(name = "Items")
 public class Items {
 	@Id
-	int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	
 	@Column(name="name")
-	String name;
+	private String name;
 	
 	@Column(name="price")
-	int price;
+	private int price;
 	
 	@Column(name="category")
-	String category;
+	private String category;
 	
 	// Stores what item belongs to which restaurant
 	@Column(name="restaurant_id")
-	int restaurant_id;
+	private int restaurant_id;
 	
 	Items(){};
 

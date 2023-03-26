@@ -3,6 +3,7 @@ package com.wissen.zwiggy.data;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
 
@@ -10,34 +11,35 @@ import jakarta.persistence.Id;
 @Table(name = "Customer")
 public class Customer {
 	@Id
-	int customer_id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int customer_id;
 	
 	@Column(name="name")
-	String name;
+	private String name;
 	
-	@Column(name="email")
-	String email;
+	@Column(name="email",unique=true)
+	private String email;
 	
 	@Column(name="password")
-	String password;
+	private String password;
 	
 	@Column(name="address")
-	String address;
+	private String address;
 	
-	@Column(name="contact")
-	long contact_no;
+	@Column(name="contact",unique=true)
+	private long contact;
 	
 	Customer(){
 	};
 
-	public Customer(int customer_id, String name, String email, String password, String address, long contact_no) {
+	public Customer(int customer_id, String name, String email, String password, String address, long contact) {
 		super();
 		this.customer_id = customer_id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.address = address;
-		this.contact_no = contact_no;
+		this.contact = contact;
 	}
 
 	public int getCustomer_id() {
@@ -80,19 +82,19 @@ public class Customer {
 		this.address = address;
 	}
 
-	public long getContact_no() {
-		return contact_no;
+	public long getContact() {
+		return contact;
 	}
 
-	public void setContact_no(long contact_no) {
-		this.contact_no = contact_no;
+	public void setContact(long contact) {
+		this.contact = contact;
 	}
 
 //	toString() method
-	@Override
-	public String toString() {
-		return "Customer [customer_id=" + customer_id + ", name=" + name + ", email=" + email + ", password=" + password
-				+ ", address=" + address + ", contact_no=" + contact_no + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Customer [customer_id=" + customer_id + ", name=" + name + ", email=" + email + ", password=" + password
+//				+ ", address=" + address + ", contact_no=" + contact_no + "]";
+//	}
 
 }

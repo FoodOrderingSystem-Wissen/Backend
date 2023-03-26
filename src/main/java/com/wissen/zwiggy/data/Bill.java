@@ -2,6 +2,8 @@ package com.wissen.zwiggy.data;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
 
@@ -10,16 +12,17 @@ import jakarta.persistence.Id;
 public class Bill {
 //	Unique bill id
 	@Id
-	int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	
 	@Column(name="order_id")
-	int order_id;
+	private int order_id;
 	
 	@Column(name="transcation_no")
-	int transcation_no;
+	private int transcation_no;
 	
 	@Column(name="amount")
-	int amount;
+	private int amount;
 	
 	Bill(){
 	};

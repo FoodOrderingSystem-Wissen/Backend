@@ -2,6 +2,8 @@ package com.wissen.zwiggy.data;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
 
@@ -9,16 +11,17 @@ import jakarta.persistence.Id;
 @Table(name = "Restaurant")
 public class Restaurant {
 	@Id
-	int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	
 	@Column(name="name")
-	String name;
+	private String name;
 	
-	@Column(name="email")
-	String email;
+	@Column(name="email",unique=true)
+	private String email;
 	
 	@Column(name="password")
-	String password;
+	private String password;
 	
 	Restaurant(){
 	};
