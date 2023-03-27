@@ -51,4 +51,19 @@ public class HomeController {
 //		System.out.println(customerSavedObj);
 		return "New Customer is Registered Successfully!";
 	}
+	
+//	Customer Login - saves to database
+	@PostMapping(path="/login")
+	public String login(@RequestBody Customer customer) {
+		Customer existingCustomer = customerRepo.getCustomerByEmail(customer.getEmail());
+//		System.out.println(existingCustomer);
+		if(existingCustomer==null) {
+//			customer does not exists
+			return "User does not exist!, Please register!";
+		}
+		if((customer.getPassword()).equals(existingCustomer.getPassword())) {
+			return "login successful";
+		}
+		return "Incorrect credentials";
+	}
 }
