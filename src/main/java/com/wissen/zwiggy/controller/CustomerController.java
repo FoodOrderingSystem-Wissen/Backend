@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +17,7 @@ import com.wissen.zwiggy.repository.ICustomerRepository;
 
 @RestController
 @RequestMapping(value = "/api/customers")  // http://localhost:8090/api/customers/<url>
-public class HomeController {
+public class CustomerController {
 	
 	@Autowired
 	ICustomerRepository customerRepo;
@@ -65,5 +66,30 @@ public class HomeController {
 			return "login successful";
 		}
 		return "Incorrect credentials";
+	}
+	
+//	When customer updates their details, it is handled here
+	@PutMapping(path="/updateDetails")
+	public String updateDetails(@RequestBody Customer customer) {
+		Customer customerDetails = customerRepo.getCustomerByEmail(customer.getEmail());
+		
+//		Updating contact info
+		Customer otherCustomerDetails = customerRepo.getCustomerByContact(customer.getContact());
+		if(otherCustomerDetails!=null) {
+			if(!(otherCustomerDetails.getEmail()).equals(customer.getEmail())) {
+//				contact number is already in use by another customer
+				return "Contact number already in use! Updation failed!";				
+			}
+		}
+//		else, update details
+		customerDetails.setContact(customer.getContact());
+//		Updating address
+		customerDetails.setAddress(customer.getAddress());
+//		Updating password
+		customerDetails.setPassword(customer.getPassword());
+		
+		customerRepo.save(customerDetails);
+		
+		return "Updation successful";
 	}
 }
