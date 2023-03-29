@@ -22,12 +22,13 @@ public class CustomerController {
 	@Autowired
 	ICustomerRepository customerRepo;
 	
-	//Displays all the customers in the database.
+	// Displays all the customers in the database
+	// Can be used for ADMIN
 	@GetMapping(path="/getAllCustomers")
 //	http://localhost:8090/api/customers/getAllCustomers
 	public List<Customer> getAllCustomers(){
 		List<Customer> customerList = customerRepo.findAll();
-		System.out.println("Getting all customers 2");
+		System.out.println("Getting all customers details");
 		return customerList ;
 	}
 	
