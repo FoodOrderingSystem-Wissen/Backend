@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 //Classes
 import com.wissen.zwiggy.data.Items;
+import com.wissen.zwiggy.data.Restaurant;
 //Repositories
 import com.wissen.zwiggy.repository.IItemsRepository;
 
@@ -63,6 +64,40 @@ public class ItemController {
 //		System.out.println(customerSavedObj);
 		return "New Item is Registered Successfully!";
 	}
+	
+	
+	
+//	When restaurants update their details, it is handled here
+	@PutMapping(path="/updateItemsDetails")
+	public String updateRestaurantDetails(@RequestBody Items items) {
+		Items itemDetails = itemsRepo.getItemsByName(items.getName());
+		
+//		Updating name info
+//		Items otherItemDetails = itemsRepo.getItemsByName(items.getName());
+//		if(otherItemDetails!=null) {
+//			if(!(otherItemDetails.getName()).equals(items.getName())) {
+////				 name is already in use by another customer
+//				return "Name already in use! Updation failed!";				
+//			}
+//		}
+//		else, update details
+		itemDetails.setName(items.getName());
+//		Updating address
+		itemDetails.setCategory(items.getCategory());
+//		Updating password
+		itemDetails.setPrice(items.getPrice());
+		
+		itemsRepo.save(itemDetails);
+		
+		return "Updation successful";
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 // 		deleting items is handled here --> id is used for deleting since different restaurants can have same item name.

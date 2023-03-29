@@ -9,8 +9,8 @@ public interface IItemsRepository extends JpaRepository<Items,Integer>{
 	
 
 	public Items getItemsById(int id);
-	
 	public Items getItemsByName(String name);
+	public Items getItemsByPrice(int price);
 	List<Items> findByRestaurantID(int restaurant_id);
 
 }
