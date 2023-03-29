@@ -25,17 +25,17 @@ public class Items {
 	
 	// Stores what item belongs to which restaurant
 	@Column(name="restaurant_id")
-	private int restaurant_id;
+	private int restaurantID;
 	
 	Items(){};
 
-	public Items(int id, String name, int price, String category, int restaurant_id) {
+	public Items(int id, String name, int price, String category, int restaurantID) {
 		super();
 		this.id = id;
 		this.name= name;
 		this.price= price;
 		this.category= category;
-		this.restaurant_id= restaurant_id;
+		this.restaurantID= restaurantID;
 	}
 
 	public int getId() {
@@ -70,19 +70,19 @@ public class Items {
 		this.category = category;
 	}
 
-	public int getRestaurant_id() {
-		return restaurant_id;
+	public int getrestaurantID() {
+		return restaurantID;
 	}
 
-	public void setRestaurant_id(int restaurant_id) {
-		this.restaurant_id = restaurant_id;
+	public void setrestaurantID(int restaurantID) {
+		this.restaurantID = restaurantID;
 	}
 	
 //	toString() method
 	@Override
 	public String toString() {
-		return "Items [id=" + id + ", name=" + name + ", price=" + price + ", category=" + category + ", restaurant_id="
-				+ restaurant_id + "]";
+		return "Items [id=" + id + ", name=" + name + ", price=" + price + ", category=" + category + ", restaurantID="
+				+ restaurantID + "]";
 	}
 	
 	
