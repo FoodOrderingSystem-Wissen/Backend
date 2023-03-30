@@ -30,7 +30,7 @@ public class ItemController {
 	// Displays the items in the database based on the restaurant id.
 //	http://localhost:8090/api/items/getItemsOfARestaurant
 
-	@PostMapping(path = "/getItemsOfARestaurant")
+	@GetMapping(path = "/getItemsOfARestaurant")
 	public List<Items> getItemsOfARestaurant(@RequestBody Items items) {
 //		the restaurant id is passed 
 		int restaurantID = items.getRestaurantID();
