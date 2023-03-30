@@ -3,6 +3,7 @@ package com.wissen.zwiggy.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,6 +24,9 @@ public class RestaurantController {
 
 	@Autowired
 	IRestaurantRepository restaurantRepo;
+
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 
 	// Displays all the restaurant in the database.
 	@GetMapping(path = "/getAllRestaurant")
@@ -49,6 +53,10 @@ public class RestaurantController {
 			}
 		}
 //		restaurant does not exist, hence now saving to database
+//		Hashing password
+		String hashedPwd = passwordEncoder.encode(restaurant.getPassword());
+		restaurant.setPassword(hashedPwd);
+
 		Restaurant restaurantSavedObj = restaurantRepo.save(restaurant);
 		return "New Restaurant is Registered Successfully!";
 	}
@@ -61,7 +69,10 @@ public class RestaurantController {
 //			restaurant does not exists
 			return "Restaurant does not exist!, Please register!";
 		}
-		if ((restaurant.getPassword()).equals(existingRestaurant.getPassword())) {
+
+//		hashed password is obtained from the database and compared with input password
+		boolean passwordMatch = passwordEncoder.matches(restaurant.getPassword(), existingRestaurant.getPassword());
+		if (passwordMatch) {
 			return "login successful";
 		}
 		return "Incorrect credentials";
@@ -85,7 +96,8 @@ public class RestaurantController {
 //		update name
 		restaurantDetails.setName(restaurant.getName());
 //		Updating password
-		restaurantDetails.setPassword(restaurant.getPassword());
+		String hashedPwd = passwordEncoder.encode(restaurant.getPassword());
+		restaurantDetails.setPassword(hashedPwd);
 
 		restaurantRepo.save(restaurantDetails);
 
