@@ -13,23 +13,23 @@ public class Analytics {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(name="restaurant_id")
-	private int restaurant_id;
-	
-	@Column(name="total_orders")
+
+	@Column(name = "restaurantID")
+	private int restaurantID;
+
+	@Column(name = "total_orders")
 	private int total_orders;
-	
-	@Column(name="total_sales")
+
+	@Column(name = "total_sales")
 	private int total_sales;
-	
-	Analytics(){
+
+	public Analytics() {
 	};
 
-	public Analytics(int id, int restaurant_id, int total_orders, int total_sales) {
+	public Analytics(int id, int restaurantID, int total_orders, int total_sales) {
 		super();
 		this.id = id;
-		this.restaurant_id = restaurant_id;
+		this.restaurantID = restaurantID;
 		this.total_orders = total_orders;
 		this.total_sales = total_sales;
 	}
@@ -42,12 +42,12 @@ public class Analytics {
 		this.id = id;
 	}
 
-	public int getRestaurant_id() {
-		return restaurant_id;
+	public int getRestaurantID() {
+		return restaurantID;
 	}
 
-	public void setRestaurant_id(int restaurant_id) {
-		this.restaurant_id = restaurant_id;
+	public void setRestaurantID(int restaurantID) {
+		this.restaurantID = restaurantID;
 	}
 
 	public int getTotal_orders() {
@@ -68,8 +68,8 @@ public class Analytics {
 
 	@Override
 	public String toString() {
-		return "Analytics [id=" + id + ", restaurant_id=" + restaurant_id + ", total_orders=" + total_orders
+		return "Analytics [id=" + id + ", restaurantID=" + restaurantID + ", total_orders=" + total_orders
 				+ ", total_sales=" + total_sales + "]";
 	}
-	
+
 }

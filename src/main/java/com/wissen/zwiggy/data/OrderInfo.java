@@ -8,10 +8,14 @@ public class OrderInfo {
 //	Array of objects to store item details
 	private List<ItemsInfo> items;
 
-	public OrderInfo(int customerID, List<ItemsInfo> items) {
+//	restaurant id
+	private int restaurantID;
+
+	public OrderInfo(int customerID, List<ItemsInfo> items, int restaurantID) {
 		super();
 		this.customerID = customerID;
 		this.items = items;
+		this.restaurantID = restaurantID;
 	}
 
 	OrderInfo() {
@@ -25,6 +29,14 @@ public class OrderInfo {
 		this.customerID = customerID;
 	}
 
+	public int getRestaurantID() {
+		return restaurantID;
+	}
+
+	public void setRestaurantID(int restaurantID) {
+		this.restaurantID = restaurantID;
+	}
+
 	public List<ItemsInfo> getItems() {
 		return items;
 	}
@@ -35,7 +47,7 @@ public class OrderInfo {
 
 	@Override
 	public String toString() {
-		return "OrderInfo [customerID=" + customerID + ", items=" + items + "]";
+		return "OrderInfo [customerID=" + customerID + ", items=" + items + ", restaurantID=" + restaurantID + "]";
 	}
 
 }
