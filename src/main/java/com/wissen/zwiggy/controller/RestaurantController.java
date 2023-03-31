@@ -17,95 +17,79 @@ import com.wissen.zwiggy.data.Restaurant;
 //Repositories
 import com.wissen.zwiggy.repository.IRestaurantRepository;
 
-
-
 @RestController
-@RequestMapping(value = "/api/restaurants")  // http://localhost:8090/api/restaurants/<url>
-
+@RequestMapping(value = "/api/restaurants") // http://localhost:8090/api/restaurants/<url>
 public class RestaurantController {
-	
-	
-	
-	
+
 	@Autowired
 	IRestaurantRepository restaurantRepo;
-	
-	//Displays all the restaurant in the database.
-	@GetMapping(path="/getAllRestaurant")
-//	http://localhost:8090/api/customers/getAllRestaurant
-	public List<Restaurant> getAllRestaurant(){
+
+	// Displays all the restaurant in the database.
+	@GetMapping(path = "/getAllRestaurant")
+//	http://localhost:8090/api/restaurants/getAllRestaurant
+	public List<Restaurant> getAllRestaurant() {
 		List<Restaurant> restaurantList = restaurantRepo.findAll();
-		System.out.println("Getting all Restaurant 2");
-		return restaurantList ;
+		System.out.println("Getting all Restaurant details");
+		return restaurantList;
 	}
-	
-//	Customer registration - saves to database
-	@PostMapping(path="/registerRestaurant")
+
+//	Restaurant registration - saves to database - unique email and name
+	@PostMapping(path = "/registerRestaurant")
 	public String registerRestaurant(@RequestBody Restaurant restaurant) {
 		Restaurant existingRestaurant = restaurantRepo.getRestaurantByEmail(restaurant.getEmail());
-		if(existingRestaurant!=null) {
-//			Restaurant already exists
+		if (existingRestaurant != null) {
+//			Restaurant already exists , emailID already in use
 			return "Restaurant already exists!, Please login!";
 		}
-		/*
-		existingRestaurant = restaurantRepo.getCustomerByContact(restaurant.getContact());
-//		System.out.println(existingCustomer );
-		if(existingRestaurant !=null) {
-//			contact number already exists for a customer
-			return "Contact number is already in use. Please use another contact number.";
+		existingRestaurant = restaurantRepo.getRestaurantByName(restaurant.getName());
+		if (existingRestaurant != null) {
+			if (existingRestaurant.getName() == restaurant.getName()) {
+//			Restaurant with given name already exists
+				return "Restaurant with given name already exists!, Please use another name!";
+			}
 		}
-		*/
-		
-//		customer does not exist and contact no is not already in use, hence now saving to database
+//		restaurant does not exist, hence now saving to database
 		Restaurant restaurantSavedObj = restaurantRepo.save(restaurant);
-//		System.out.println(customerSavedObj);
 		return "New Restaurant is Registered Successfully!";
 	}
-	
+
 //	Restaurant Login - saves to database
-	@PostMapping(path="/loginRestaurant")
+	@PostMapping(path = "/loginRestaurant")
 	public String loginRetaurant(@RequestBody Restaurant restaurant) {
 		Restaurant existingRestaurant = restaurantRepo.getRestaurantByEmail(restaurant.getEmail());
-		if(existingRestaurant==null) {
+		if (existingRestaurant == null) {
 //			restaurant does not exists
 			return "Restaurant does not exist!, Please register!";
 		}
-		if((restaurant.getPassword()).equals(existingRestaurant.getPassword())) {
+		if ((restaurant.getPassword()).equals(existingRestaurant.getPassword())) {
 			return "login successful";
 		}
 		return "Incorrect credentials";
 	}
-	
+
 //	When restaurants update their details, it is handled here
-	@PutMapping(path="/updateRestaurantDetails")
+	@PutMapping(path = "/updateRestaurantDetails")
 	public String updateRestaurantDetails(@RequestBody Restaurant restaurant) {
+//		retrieve the original restaurant details
 		Restaurant restaurantDetails = restaurantRepo.getRestaurantByEmail(restaurant.getEmail());
-		
-//		Updating name info
+
+//		Searching if other restaurants have the same name as requested
 		Restaurant otherRestaurantDetails = restaurantRepo.getRestaurantByName(restaurant.getName());
-		if(otherRestaurantDetails!=null) {
-			if(!(otherRestaurantDetails.getName()).equals(restaurant.getName())) {
-//				 name is already in use by another customer
-				return "Name already in use! Updation failed!";				
+		if (otherRestaurantDetails != null) {
+			if (!(otherRestaurantDetails.getEmail()).equals(restaurant.getEmail())) {
+//				 name is already in use by another restaurant
+				return "Name already in use! Updation failed!";
 			}
 		}
-//		else, update details
+
+//		update name
 		restaurantDetails.setName(restaurant.getName());
-//		Updating address
-		restaurantDetails.setEmail(restaurant.getEmail());
 //		Updating password
 		restaurantDetails.setPassword(restaurant.getPassword());
-		
+
 		restaurantRepo.save(restaurantDetails);
-		
+
 		return "Updation successful";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

@@ -3,7 +3,9 @@ package com.wissen.zwiggy.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,12 +24,13 @@ public class CustomerController {
 	@Autowired
 	ICustomerRepository customerRepo;
 	
-	//Displays all the customers in the database.
+	// Displays all the customers in the database
+	// Can be used for ADMIN
 	@GetMapping(path="/getAllCustomers")
 //	http://localhost:8090/api/customers/getAllCustomers
 	public List<Customer> getAllCustomers(){
 		List<Customer> customerList = customerRepo.findAll();
-		System.out.println("Getting all customers 2");
+		System.out.println("Getting all customers details");
 		return customerList ;
 	}
 	
@@ -91,5 +94,13 @@ public class CustomerController {
 		customerRepo.save(customerDetails);
 		
 		return "Updation successful";
+	}
+	
+// 	deleting customer is handled here
+	@DeleteMapping(path = "/delete/{id}")
+	public String deleteOrderItem(@PathVariable int id) {
+		System.out.println("Delete ID: " + id);
+		customerRepo.deleteById(id);
+		return "Delete Success";
 	}
 }
