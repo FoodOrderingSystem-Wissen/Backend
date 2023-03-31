@@ -96,6 +96,7 @@ public class RestaurantController {
 //		update name
 		restaurantDetails.setName(restaurant.getName());
 //		Updating password
+
 		String hashedPwd = passwordEncoder.encode(restaurant.getPassword());
 		restaurantDetails.setPassword(hashedPwd);
 

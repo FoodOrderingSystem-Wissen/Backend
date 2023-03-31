@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 //Bcrypt password encoder
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -107,5 +109,13 @@ public class CustomerController {
 		customerRepo.save(customerDetails);
 
 		return "Updation successful";
+	}
+
+// 	deleting customer is handled here
+	@DeleteMapping(path = "/delete/{id}")
+	public String deleteOrderItem(@PathVariable int id) {
+		System.out.println("Delete ID: " + id);
+		customerRepo.deleteById(id);
+		return "Delete Success";
 	}
 }

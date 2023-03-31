@@ -1,11 +1,18 @@
 package com.wissen.zwiggy.data;
 
+import java.util.List;
+
+import org.hibernate.annotations.Formula;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 
 @Entity
 @Table(name = "Orders")
@@ -15,22 +22,28 @@ public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	 
+	 @OneToMany
+	    @JoinColumn(name = "orderID")
+	    private List<OrderItems> orderItems;
+	    
 	
 //	what order belongs to which customer
-	@Column(name="customer_id")
-	private int customer_id;
+	@Column(name="customerID")
+	private int customerID;
 	
 	@Column(name="total")
+	@Formula("(SELECT SUM(oi.quantity * i.price) FROM order_items oi JOIN items i ON oi.itemID = i.id WHERE oi.orderID = i.id)")
 	private int total;
 	
 	Orders(){
 		
 	};
 
-	public Orders(int id, int customer_id, int total) {
+	public Orders(int id, int customerID, int total) {
 		super();
 		this.id = id;
-		this.customer_id = customer_id;
+		this.customerID = customerID;
 		this.total = total;
 	}
 
@@ -43,12 +56,12 @@ public class Orders {
 		this.id = id;
 	}
 
-	public int getCustomer_id() {
-		return customer_id;
+	public int getcustomerID() {
+		return customerID;
 	}
 
-	public void setCustomer_id(int customer_id) {
-		this.customer_id = customer_id;
+	public void setcustomerID(int customerID) {
+		this.customerID = customerID;
 	}
 
 	public int getTotal() {
@@ -62,7 +75,7 @@ public class Orders {
 //	toString() method
 	@Override
 	public String toString() {
-		return "Orders [id=" + id + ", customer_id=" + customer_id + ", total=" + total + "]";
+		return "Orders [id=" + id + ", customerID=" + customerID + ", total=" + total + "]";
 	}
 	
 }

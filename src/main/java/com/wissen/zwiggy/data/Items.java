@@ -1,11 +1,15 @@
 package com.wissen.zwiggy.data;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Items")
@@ -14,7 +18,12 @@ public class Items {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "name",unique=true)
+	// creating id as a foreign key with one to many relation
+	@OneToMany
+	@JoinColumn(name = "itemID")
+	private List<OrderItems> orderItems;
+
+	@Column(name = "name", unique = true)
 	private String name;
 
 	@Column(name = "price")

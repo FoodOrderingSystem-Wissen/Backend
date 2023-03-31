@@ -1,7 +1,6 @@
 package com.wissen.zwiggy.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 //Classes
 import com.wissen.zwiggy.data.Items;
-import com.wissen.zwiggy.data.Restaurant;
 //Repositories
 import com.wissen.zwiggy.repository.IItemsRepository;
 
@@ -42,7 +40,7 @@ public class ItemController {
 //	items registration - saves to database
 	@PostMapping(path = "/registerItems")
 	public String registerItems(@RequestBody Items items) {
-		Items existingItem = itemsRepo.findByNameAndRestaurantID(items.getName(),items.getRestaurantID());
+		Items existingItem = itemsRepo.findByNameAndRestaurantID(items.getName(), items.getRestaurantID());
 		if (existingItem != null) {
 //			item for the restaurant already exists
 			return "The food item with the same name is already registered in your restaurant menu. "
@@ -59,12 +57,12 @@ public class ItemController {
 	@PutMapping(path = "/updateItemsDetails")
 	public String updateRestaurantDetails(@RequestBody Items items) {
 //		Retrieving item details using received item name and restaurant id
-		Items itemDetails = itemsRepo.findByNameAndRestaurantID(items.getName(),items.getRestaurantID());
-		
+		Items itemDetails = itemsRepo.findByNameAndRestaurantID(items.getName(), items.getRestaurantID());
+
 //		checking if the existing item with the name is the same item that is being updated
-		if(itemDetails.getId()!=items.getId()){
+		if (itemDetails.getId() != items.getId()) {
 //			item with given name already exists for the restaurant
-			return "Name already in use! Updation failed!";				
+			return "Name already in use! Updation failed!";
 		}
 //		id of retrieved Item and updating item is the same, hence update details
 //		updating name of item
