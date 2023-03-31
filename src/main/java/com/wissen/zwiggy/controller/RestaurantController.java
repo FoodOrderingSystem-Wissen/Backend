@@ -38,8 +38,8 @@ public class RestaurantController {
 	}
 
 //	Restaurant registration - saves to database - unique email and name
-	@PostMapping(path = "/registerRestaurant")
-	public String registerRestaurant(@RequestBody Restaurant restaurant) {
+	@PostMapping(path = "/register")
+	public String register(@RequestBody Restaurant restaurant) {
 		Restaurant existingRestaurant = restaurantRepo.getRestaurantByEmail(restaurant.getEmail());
 		if (existingRestaurant != null) {
 //			Restaurant already exists , emailID already in use
@@ -62,8 +62,8 @@ public class RestaurantController {
 	}
 
 //	Restaurant Login - saves to database
-	@PostMapping(path = "/loginRestaurant")
-	public String loginRetaurant(@RequestBody Restaurant restaurant) {
+	@PostMapping(path = "/login")
+	public String login(@RequestBody Restaurant restaurant) {
 		Restaurant existingRestaurant = restaurantRepo.getRestaurantByEmail(restaurant.getEmail());
 		if (existingRestaurant == null) {
 //			restaurant does not exists
