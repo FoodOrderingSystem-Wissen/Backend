@@ -1,39 +1,45 @@
 package com.wissen.zwiggy.data;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Orders")
 public class Orders {
-	
-//	Unique order id for each order
+
+//	unique order id
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-//	what order belongs to which customer
-	@Column(name="customer_id")
-	private int customer_id;
-	
-	@Column(name="total")
-	private int total;
-	
-	Orders(){
-		
-	};
 
-	public Orders(int id, int customer_id, int total) {
-		super();
-		this.id = id;
-		this.customer_id = customer_id;
-		this.total = total;
+	@OneToMany
+	@JoinColumn(name = "orderID")
+	private List<OrderItems> orderItems;
+
+//	what order belongs to which customer
+	@Column(name = "customerID")
+	private int customerID;
+
+	@Column(name = "total")
+	private int total;
+
+	public Orders() {
 	}
 
+	public Orders(int id, int customerID, int total) {
+		super();
+		this.id = id;
+		this.customerID = customerID;
+		this.total = total;
+	}
 
 	public int getId() {
 		return id;
@@ -43,12 +49,12 @@ public class Orders {
 		this.id = id;
 	}
 
-	public int getCustomer_id() {
-		return customer_id;
+	public int getCustomerID() {
+		return customerID;
 	}
 
-	public void setCustomer_id(int customer_id) {
-		this.customer_id = customer_id;
+	public void setCustomerID(int customerID) {
+		this.customerID = customerID;
 	}
 
 	public int getTotal() {
@@ -58,11 +64,10 @@ public class Orders {
 	public void setTotal(int total) {
 		this.total = total;
 	}
-	
-//	toString() method
+
 	@Override
 	public String toString() {
-		return "Orders [id=" + id + ", customer_id=" + customer_id + ", total=" + total + "]";
-	}
-	
+		return "Orders [id=" + id + ", customerID=" + customerID + ", total=" + total + "]";
+	};
+
 }

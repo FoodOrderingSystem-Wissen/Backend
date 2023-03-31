@@ -14,24 +14,26 @@ public class OrderItems {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(name="item_id")
-	private int item_id;
-	
-	@Column(name="order_id")
-	private int order_id;
-	
-	@Column(name="quantity")
+
+	@Column(name = "orderID")
+	private int orderID;
+
+	@Column(name = "itemID")
+	private int itemID;
+
+	@Column(name = "quantity")
 	private int quantity;
-	
-	OrderItems(){};
-	
-	public OrderItems(int id, int item_id, int order_id,int quantity) {
+
+	public OrderItems() {
+	};
+
+	public OrderItems(int id, int itemID, int orderID, int quantity) {
 		super();
 		this.id = id;
-		this.item_id= item_id;
-		this.order_id= order_id;
-		this.quantity= quantity;
+		this.itemID = itemID;
+		this.orderID = orderID;
+		this.quantity = quantity;
+
 	}
 
 	public int getId() {
@@ -42,20 +44,20 @@ public class OrderItems {
 		this.id = id;
 	}
 
-	public int getItem_id() {
-		return item_id;
+	public int getItemID() {
+		return itemID;
 	}
 
-	public void setItem_id(int item_id) {
-		this.item_id = item_id;
+	public void setitemID(int itemID) {
+		this.itemID = itemID;
 	}
 
-	public int getOrder_id() {
-		return order_id;
+	public int getOrderID() {
+		return orderID;
 	}
 
-	public void setOrder_id(int order_id) {
-		this.order_id = order_id;
+	public void setorderID(int orderID) {
+		this.orderID = orderID;
 	}
 
 	public int getQuantity() {
@@ -68,8 +70,7 @@ public class OrderItems {
 
 	@Override
 	public String toString() {
-		return "OrderItems [id=" + id + ", item_id=" + item_id + ", order_id=" + order_id + ", quantity=" + quantity
-				+ "]";
+		return "OrderItems [id=" + id + ", itemID=" + itemID + ", orderID=" + orderID + ", quantity=" + quantity + " ]";
 	}
-	
+
 }
