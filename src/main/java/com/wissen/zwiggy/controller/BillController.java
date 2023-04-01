@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wissen.zwiggy.data.Bill;
+import com.wissen.zwiggy.data.Restaurant;
 import com.wissen.zwiggy.repository.IBillRepository;
 import com.wissen.zwiggy.repository.IItemsRepository;
 
@@ -29,12 +30,9 @@ public class BillController {
     // GET method to retrieve all bills
     @GetMapping(path = "/getAllBills")
 //    http://localhost:8090/api/bill/getAllBills
-    public ResponseEntity<List<Bill>> getAllBills() {
+    public List<Bill> getAllBills() {
         List<Bill> bills = billRepo.findAll();
-        if (bills.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(bills, HttpStatus.OK);
+        return bills;
     }
     
     // GET method to retrieve a bill by its ID
@@ -49,13 +47,16 @@ public class BillController {
     }
     
     // POST method to create a new bill
-    @PostMapping(path = "/createBill")
-    public ResponseEntity<Bill> createBill(@RequestBody Bill bill) {
-        try {
-            Bill _bill = billRepo.save(new Bill(bill.getId(), bill.getOrder_id(), bill.getTranscation_no(), bill.getAmount()));
-            return new ResponseEntity<>(_bill, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    @PostMapping(path="/createBill")
+    public String createBill(@RequestBody Bill bill) {
+        Bill existingBill = billRepo.getBillByorderID(bill.getOrder_id());
+        if (existingBill != null) {
+            // A bill with the same order ID already exists
+            return "Bill with order ID " + bill.getOrder_id() + " already exists!";
+        } else {
+            billRepo.save(bill);
+            return "Bill created successfully!";
         }
     }
+
 }

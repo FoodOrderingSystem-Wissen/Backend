@@ -16,7 +16,7 @@ public class Bill {
 	private int id;
 	
 	@Column(name="order_id")
-	private int order_id;
+	private int orderID;
 	
 	@Column(name="transcation_no")
 	private int transcation_no;
@@ -30,7 +30,7 @@ public class Bill {
 	public Bill(int id, int order_id, int transcation_no, int amount) {
 		super();
 		this.id = id;
-		this.order_id = order_id;
+		this.orderID = order_id;
 		this.transcation_no = transcation_no;
 		this.amount = amount;
 	}
@@ -44,11 +44,11 @@ public class Bill {
 	}
 
 	public int getOrder_id() {
-		return order_id;
+		return orderID;
 	}
 
-	public void setOrder_id(int order_id) {
-		this.order_id = order_id;
+	public void setOrder_id(int orderID) {
+		this.orderID = orderID;
 	}
 
 	public int getTranscation_no() {
@@ -69,7 +69,7 @@ public class Bill {
 
 	@Override
 	public String toString() {
-		return "Bill [id=" + id + ", order_id=" + order_id + ", transcation_no=" + transcation_no + ", amount=" + amount
+		return "Bill [id=" + id + ", order_id=" + orderID + ", transcation_no=" + transcation_no + ", amount=" + amount
 				+ "]";
 	}
 	
