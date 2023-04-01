@@ -49,9 +49,6 @@ public class OrderItemsController {
 			}
 			
 			
-			
-			
-			
 	//		orderItems does not exist and contact no is not already in use, hence now saving to database
 			OrderItems orderItemsSavedObj = orderItemsRepo.save(orderItems);
 	//		System.out.println(orderItemsSavedObj);
