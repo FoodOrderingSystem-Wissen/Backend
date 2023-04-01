@@ -46,6 +46,14 @@ public class Bill {
 		this.id = id;
 	}
 
+	public Orders getOrder() {
+		return order;
+	}
+
+	public void setOrder(Orders order) {
+		this.order = order;
+	}
+
 	public int getTranscation_no() {
 		return transcation_no;
 	}
@@ -60,14 +68,6 @@ public class Bill {
 
 	public void setAmount(int amount) {
 		this.amount = amount;
-	}
-
-	public Orders getOrder() {
-		return order;
-	}
-
-	public void setOrder(Orders order) {
-		this.order = order;
 	}
 
 	@Override
