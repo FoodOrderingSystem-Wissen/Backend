@@ -18,8 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 //Classes
 import com.wissen.zwiggy.data.Customer;
+import com.wissen.zwiggy.data.OrderItems;
+import com.wissen.zwiggy.data.Orders;
 // Repositories
 import com.wissen.zwiggy.repository.ICustomerRepository;
+import com.wissen.zwiggy.repository.IOrderItemsRepository;
+import com.wissen.zwiggy.repository.IOrdersRepository;
 
 @RestController
 @RequestMapping(value = "/api/customers") // http://localhost:8090/api/customers/<url>
@@ -117,5 +121,26 @@ public class CustomerController {
 		System.out.println("Delete ID: " + id);
 		customerRepo.deleteById(id);
 		return "Delete Success";
+	}
+
+	@Autowired
+	IOrdersRepository ordersRepo;
+
+	@Autowired
+	IOrderItemsRepository orderItemsRepo;
+
+//	viewing order history
+	@GetMapping(path = "/viewOrders")
+	public List<Orders> viewOrders(@RequestBody Customer customer) {
+		List<Orders> orderDetails = ordersRepo.getOrdersByCustomerID(customer.getCustomer_id());
+//		returns the list of orders for the particular customer
+		return orderDetails;
+	}
+
+	@GetMapping(path = "/viewOrders/{id}")
+	public List<OrderItems> viewOrderDetail(@PathVariable int orderID) {
+		List<OrderItems> orderDetail = orderItemsRepo.getOrderItemsByOrderID(orderID);
+//		returning all the items that are in that particular order id
+		return orderDetail;
 	}
 }
