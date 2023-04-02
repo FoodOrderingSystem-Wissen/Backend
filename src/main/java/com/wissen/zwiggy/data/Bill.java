@@ -4,8 +4,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Bill")
@@ -14,27 +16,28 @@ public class Bill {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(name="order_id")
-	private int orderID;
-	
-	@Column(name="transcation_no")
+
+	@OneToOne
+	@JoinColumn(name = "orderID")
+	private Orders order;
+
+	@Column(name = "transcation_no")
 	private int transcation_no;
-	
-	@Column(name="amount")
+
+	@Column(name = "amount")
 	private int amount;
-	
-	Bill(){
+
+	Bill() {
 	};
-	
-	public Bill(int id, int order_id, int transcation_no, int amount) {
+
+	public Bill(int id, Orders order, int transcation_no, int amount) {
 		super();
 		this.id = id;
-		this.orderID = order_id;
+		this.order = order;
 		this.transcation_no = transcation_no;
 		this.amount = amount;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -43,12 +46,12 @@ public class Bill {
 		this.id = id;
 	}
 
-	public int getOrder_id() {
-		return orderID;
+	public Orders getOrder() {
+		return order;
 	}
 
-	public void setOrder_id(int orderID) {
-		this.orderID = orderID;
+	public void setOrder(Orders order) {
+		this.order = order;
 	}
 
 	public int getTranscation_no() {
@@ -69,8 +72,8 @@ public class Bill {
 
 	@Override
 	public String toString() {
-		return "Bill [id=" + id + ", order_id=" + orderID + ", transcation_no=" + transcation_no + ", amount=" + amount
+		return "Bill [id=" + id + ", order=" + order + ", transcation_no=" + transcation_no + ", amount=" + amount
 				+ "]";
 	}
-	
+
 }

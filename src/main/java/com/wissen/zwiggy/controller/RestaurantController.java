@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wissen.zwiggy.data.Analytics;
 //Classes
 import com.wissen.zwiggy.data.Restaurant;
+import com.wissen.zwiggy.repository.IAnalyticsRepository;
 //Repositories
 import com.wissen.zwiggy.repository.IRestaurantRepository;
 
@@ -102,6 +104,17 @@ public class RestaurantController {
 		restaurantRepo.save(restaurantDetails);
 
 		return "Updation successful";
+	}
+
+	@Autowired
+	IAnalyticsRepository analyticsRepo;
+
+//	Merchant retrieving their analytics
+	@GetMapping(path = "/viewAnalytics")
+	public Analytics viewAnalytics(@RequestBody Restaurant restaurant) {
+//		restaurant id is passed
+		Analytics restaurantAnalytics = analyticsRepo.findByRestaurantID(restaurant.getId());
+		return restaurantAnalytics;
 	}
 
 }

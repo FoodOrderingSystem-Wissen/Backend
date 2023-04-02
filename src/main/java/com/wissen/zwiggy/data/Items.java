@@ -34,7 +34,7 @@ public class Items {
 	private String category;
 
 	// Stores what item belongs to which restaurant
-	@Column(name = "restaurant_id")
+	@Column(name = "restaurantID")
 	private int restaurantID;
 
 	Items() {

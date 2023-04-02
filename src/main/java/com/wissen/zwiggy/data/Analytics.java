@@ -4,8 +4,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Analytics")
@@ -14,8 +16,9 @@ public class Analytics {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "restaurantID")
-	private int restaurantID;
+	@OneToOne
+	@JoinColumn(name = "restaurantID")
+	private Restaurant restaurant;
 
 	@Column(name = "total_orders")
 	private int total_orders;
@@ -26,10 +29,10 @@ public class Analytics {
 	public Analytics() {
 	};
 
-	public Analytics(int id, int restaurantID, int total_orders, int total_sales) {
+	public Analytics(int id, Restaurant restaurant, int total_orders, int total_sales) {
 		super();
 		this.id = id;
-		this.restaurantID = restaurantID;
+		this.restaurant = restaurant;
 		this.total_orders = total_orders;
 		this.total_sales = total_sales;
 	}
@@ -42,12 +45,12 @@ public class Analytics {
 		this.id = id;
 	}
 
-	public int getRestaurantID() {
-		return restaurantID;
+	public Restaurant getRestaurant() {
+		return restaurant;
 	}
 
-	public void setRestaurantID(int restaurantID) {
-		this.restaurantID = restaurantID;
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
 	}
 
 	public int getTotal_orders() {
@@ -68,7 +71,7 @@ public class Analytics {
 
 	@Override
 	public String toString() {
-		return "Analytics [id=" + id + ", restaurantID=" + restaurantID + ", total_orders=" + total_orders
+		return "Analytics [id=" + id + ", restaurant=" + restaurant + ", total_orders=" + total_orders
 				+ ", total_sales=" + total_sales + "]";
 	}
 
