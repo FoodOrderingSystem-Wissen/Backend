@@ -49,7 +49,7 @@ public class ItemController {
 //		item does not exist in the restaurant menu, hence now saving to database
 		Items itemSavedObj = itemsRepo.save(item);
 //		System.out.println(itemSavedObj);
-		return "New Item is added Successfully!";
+		return "true";
 	}
 
 //	When an item's detail is updated, it is handled here
@@ -73,7 +73,7 @@ public class ItemController {
 
 		itemsRepo.save(itemDetails);
 
-		return "Item update successful";
+		return "true";
 	}
 
 // 	deleting items is handled here --> id is used for deleting since different restaurants can have same item name.
@@ -82,7 +82,7 @@ public class ItemController {
 	public String deleteItem(@PathVariable int id) {
 		System.out.println("Delete ID: " + id);
 		itemsRepo.deleteById(id);
-		return "Item is successfully deleted";
+		return "true";
 	}
 
 }
