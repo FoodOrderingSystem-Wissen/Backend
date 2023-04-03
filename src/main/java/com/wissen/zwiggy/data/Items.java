@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -33,7 +34,7 @@ public class Items {
 	private String category;
 
 	// Stores what item belongs to which restaurant
-	@Column(name = "restaurant_id")
+	@Column(name = "restaurantID")
 	private int restaurantID;
 
 	Items() {

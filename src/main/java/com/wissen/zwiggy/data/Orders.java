@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,6 +24,9 @@ public class Orders {
 	@OneToMany
 	@JoinColumn(name = "orderID")
 	private List<OrderItems> orderItems;
+
+	@OneToOne(mappedBy = "order")
+	private Bill bill;
 
 //	what order belongs to which customer
 	@Column(name = "customerID")

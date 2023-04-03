@@ -1,29 +1,43 @@
 package com.wissen.zwiggy.data;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Restaurant")
 public class Restaurant {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private int id;
-	
-	@Column(name="name",unique=true)
+
+	@OneToOne(mappedBy = "restaurant")
+	private Analytics analytics;
+
+//	One restaurant has many items
+	@OneToMany
+	@JoinColumn(name = "restaurantID")
+	private List<Items> items;
+
+	@Column(name = "name", unique = true)
 	private String name;
-	
-	@Column(name="email",unique=true)
+
+	@Column(name = "email", unique = true)
 	private String email;
-	
-	@Column(name="password")
+
+	@Column(name = "password")
 	private String password;
-	
-	Restaurant(){
+
+	public Restaurant() {
 	};
 
 	public Restaurant(int id, String name, String email, String password) {
@@ -33,7 +47,6 @@ public class Restaurant {
 		this.email = email;
 		this.password = password;
 	}
-
 
 	public int getId() {
 		return id;
@@ -72,5 +85,5 @@ public class Restaurant {
 	public String toString() {
 		return "Restaurant [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + "]";
 	}
-	
+
 }

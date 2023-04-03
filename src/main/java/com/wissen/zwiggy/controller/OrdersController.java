@@ -15,6 +15,7 @@ import com.wissen.zwiggy.data.ItemsInfo;
 import com.wissen.zwiggy.data.OrderInfo;
 import com.wissen.zwiggy.data.OrderItems;
 import com.wissen.zwiggy.data.Orders;
+import com.wissen.zwiggy.data.Restaurant;
 import com.wissen.zwiggy.repository.IAnalyticsRepository;
 import com.wissen.zwiggy.repository.IItemsRepository;
 import com.wissen.zwiggy.repository.IOrderItemsRepository;
@@ -80,13 +81,16 @@ public class OrdersController {
 			restaurantAnalytics.setTotal_sales(restaurantAnalytics.getTotal_sales() + total);
 			analyticsRepo.save(restaurantAnalytics);
 		} else {
+			Restaurant restaurant = new Restaurant();
+			restaurant.setId(orderDetails.getRestaurantID());
 			restaurantAnalytics = new Analytics();
-			restaurantAnalytics.setRestaurantID(orderDetails.getRestaurantID());
+			restaurantAnalytics.setRestaurant(restaurant);
 			restaurantAnalytics.setTotal_orders(1);
 			restaurantAnalytics.setTotal_sales(total);
 			analyticsRepo.save(restaurantAnalytics);
 		}
 
-		return "New order is registered successfully!";
+//		return "New order is registered successfully!";
+		return "true";
 	}
 }

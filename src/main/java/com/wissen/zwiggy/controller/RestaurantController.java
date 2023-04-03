@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wissen.zwiggy.data.Analytics;
 //Classes
 import com.wissen.zwiggy.data.Restaurant;
+import com.wissen.zwiggy.repository.IAnalyticsRepository;
 //Repositories
 import com.wissen.zwiggy.repository.IRestaurantRepository;
 
@@ -58,7 +60,8 @@ public class RestaurantController {
 		restaurant.setPassword(hashedPwd);
 
 		Restaurant restaurantSavedObj = restaurantRepo.save(restaurant);
-		return "New Restaurant is Registered Successfully!";
+//		return "New Restaurant is Registered Successfully!";
+		return "true";
 	}
 
 //	Restaurant Login - saves to database
@@ -73,7 +76,7 @@ public class RestaurantController {
 //		hashed password is obtained from the database and compared with input password
 		boolean passwordMatch = passwordEncoder.matches(restaurant.getPassword(), existingRestaurant.getPassword());
 		if (passwordMatch) {
-			return "login successful";
+			return "true";
 		}
 		return "Incorrect credentials";
 	}
@@ -101,7 +104,19 @@ public class RestaurantController {
 
 		restaurantRepo.save(restaurantDetails);
 
-		return "Updation successful";
+//		return "Updation successful";
+		return "true";
+	}
+
+	@Autowired
+	IAnalyticsRepository analyticsRepo;
+
+//	Merchant retrieving their analytics
+	@GetMapping(path = "/viewAnalytics")
+	public Analytics viewAnalytics(@RequestBody Restaurant restaurant) {
+//		restaurant id is passed
+		Analytics restaurantAnalytics = analyticsRepo.findByRestaurantID(restaurant.getId());
+		return restaurantAnalytics;
 	}
 
 }
