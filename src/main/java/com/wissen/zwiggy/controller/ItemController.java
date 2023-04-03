@@ -27,12 +27,14 @@ public class ItemController {
 
 //	Displays the items in the database based on the restaurant id.
 //	http://localhost:8090/api/items/getItemsOfARestaurant
-	@GetMapping(path = "/getItemsOfARestaurant")
+	@PostMapping(path = "/getItemsOfARestaurant")
 	public List<Items> getItemsOfARestaurant(@RequestBody Items items) {
 //		the restaurant id is passed 
 		int restaurantID = items.getRestaurantID();
 //		The list of items from the items table that belongs to restaurant ID is retrieved
 		List<Items> itemsList = itemsRepo.findByRestaurantID(restaurantID);
+		System.out.println(itemsList);
+		System.out.println(restaurantID);
 		return itemsList;
 	}
 
