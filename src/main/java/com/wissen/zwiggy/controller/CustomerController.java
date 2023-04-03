@@ -53,12 +53,14 @@ public class CustomerController {
 		if (existingCustomer != null) {
 //			customer already exists
 			return "Customer already exists!, Please login!";
+//			return false;
 		}
 		existingCustomer = customerRepo.getCustomerByContact(customer.getContact());
 //		System.out.println(existingCustomer );
 		if (existingCustomer != null) {
 //			contact number already exists for a customer
 			return "Contact number is already in use. Please use another contact number.";
+//			return false;
 		}
 
 //		customer does not exist and contact no is not already in use, hence now saving to database
@@ -68,14 +70,15 @@ public class CustomerController {
 
 		Customer customerSavedObj = customerRepo.save(customer);
 //		System.out.println(customerSavedObj);
-		return "New Customer is Registered Successfully!";
+//		return "New Customer is Registered Successfully!";
+		return "true";
 	}
 
 //	Customer Login - saves to database
 	@PostMapping(path = "/login")
 	public String login(@RequestBody Customer customer) {
 		Customer existingCustomer = customerRepo.getCustomerByEmail(customer.getEmail());
-//		System.out.println(existingCustomer);
+		System.out.println(existingCustomer);
 		if (existingCustomer == null) {
 //			customer does not exists
 			return "User does not exist!, Please register!";
@@ -84,7 +87,7 @@ public class CustomerController {
 		boolean passwordMatch = passwordEncoder.matches(customer.getPassword(), existingCustomer.getPassword());
 		if (passwordMatch) {
 //		System.out.println("Given password by user : " + customer.getPassword() + ", is matching with the db : " + passwordMatch);
-			return "login successful";
+			return "true";
 		}
 		return "Incorrect credentials";
 	}

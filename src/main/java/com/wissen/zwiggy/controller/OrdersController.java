@@ -90,6 +90,7 @@ public class OrdersController {
 			analyticsRepo.save(restaurantAnalytics);
 		}
 
-		return "New order is registered successfully!";
+//		return "New order is registered successfully!";
+		return "true";
 	}
 }

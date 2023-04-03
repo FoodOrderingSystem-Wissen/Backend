@@ -60,7 +60,8 @@ public class RestaurantController {
 		restaurant.setPassword(hashedPwd);
 
 		Restaurant restaurantSavedObj = restaurantRepo.save(restaurant);
-		return "New Restaurant is Registered Successfully!";
+//		return "New Restaurant is Registered Successfully!";
+		return "true";
 	}
 
 //	Restaurant Login - saves to database
@@ -75,7 +76,7 @@ public class RestaurantController {
 //		hashed password is obtained from the database and compared with input password
 		boolean passwordMatch = passwordEncoder.matches(restaurant.getPassword(), existingRestaurant.getPassword());
 		if (passwordMatch) {
-			return "login successful";
+			return "true";
 		}
 		return "Incorrect credentials";
 	}
@@ -103,7 +104,8 @@ public class RestaurantController {
 
 		restaurantRepo.save(restaurantDetails);
 
-		return "Updation successful";
+//		return "Updation successful";
+		return "true";
 	}
 
 	@Autowired

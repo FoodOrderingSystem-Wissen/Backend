@@ -45,6 +45,7 @@ public class BillController {
 	@PostMapping(path = "/createBill")
 	public String createBill(@RequestBody Bill bill) {
 		billRepo.save(bill);
+		System.out.println(bill);
 		return "Bill created successfully!";
 	}
 
